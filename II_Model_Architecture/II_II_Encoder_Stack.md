@@ -85,5 +85,38 @@ We usually create something like 8 heads, each of which will do the same operati
 Pretty basic, contains two layers, applies a ReLu activation function
 - Two convolutions with size 1 kernel.
 
-# Decoder Stack
 
+# My sparknotes summary of how transformer encoder stacks work:
+
+1. Generate embeddings
+  - Input: Sequence of words/tokens
+  - Output: Embeddings of each word/token (an embedding is a vector)
+  - **TLDR:** A skip-gram model is used to generate embeddings from each token in a sequence
+
+2. Add positional info
+  - Input: Embeddings of each word/token
+  - Output:  Embeddings of each word/token but each word/token has some small value added to it representative of it's position
+  - **TLDR:** Embeddings are transformed to also encode positional info 
+
+3. Self-Attention is applied
+  - Input: Embeddings with positional info
+  - Output: Embeddings with positional info + attention score
+  - **TLDR:** Attention score is just the token value, and the values of all tokens that relate to that token value, combined together
+
+4. All self-attention heads have their output concatenated
+
+5. Feed-Forward Neural Network
+
+6. Layer Normalization
+
+* Residual information is applied throughout the stack
+
+# My sparknotes summary of what key, query, value mean
+
+TOKEN: Used here to refer to the token under observation for the current iteration
+
+- Query: The TOKEN we are observing
+- Key: Matrix containing the words related to TOKEN
+- Value: The value of all words related to TOKEN and TOKEN
+
+Combined together to form: Attention scores for each TOKEN
